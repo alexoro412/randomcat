@@ -59,17 +59,6 @@
 
 
     <script>
-      a = true;
-      function hey(){
-        // alert('hey');
-        if(!a){
-          document.getElementById("cat").style.display = 'none';
-        }else{
-          document.getElementById("cat").style.display = 'block';
-        }
-        a = !a;
-      }
-
       function myFunction(xml) {
           var xmlDoc = xml.responseXML;
           console.log(xmlDoc.getElementsByTagName("url")[0].innerHTML)
@@ -88,6 +77,8 @@
         xhttp.open("GET", "http://thecatapi.com/api/images/get?format=xml&results_per_page=1", true);
         xhttp.send();
       }
+
+      get();
 
     </script>
   </body>
