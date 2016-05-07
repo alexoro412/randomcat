@@ -5,6 +5,7 @@
 
   <head>
     <title>Random Cat</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -15,17 +16,38 @@
         padding:0px;
       }
       #cat{
-        width: 80%;
-        display:none;
+        width: 100%;
         max-width:100%;
+      }
+      a[disabled] {
+        pointer-events: none;
       }
     </style>
 
 
-    <div align="center">
-      <a href="javascript:get()">
-        <img src="cat.jpg" id="cat"/>
-      </a>
+    <div class="col-sm-8 well">
+        <img src="loading.gif" id="cat"/>
+    </div>
+
+    <div class="col-sm-offset-1 col-sm-3 well">
+      <p>
+          <button id="next-cat" type="button" class="btn btn-lg btn-block btn-primary" onclick="get()">
+            Next cat&nbsp;<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+          </button>
+      </p>
+
+      <p>
+        <a id="download-link" href="loading.gif" download>
+          <button id="download-btn" type="button" class="btn btn-lg btn-block btn-primary">
+            Download&nbsp;<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+          </button>
+        </a>
+      </p>
+
+      <div class="input-group">
+        <span class="input-group-addon">URL</span>
+        <a href="" id="sourcelink"><input id="sourceurl" type="text" class="form-control" readonly value=""></a>
+      </div>
     </div>
 
 
@@ -39,7 +61,13 @@
           var xmlDoc = xml.responseXML;
           var img = document.getElementById("cat");
           img.src = xmlDoc.getElementsByTagName("url")[0].innerHTML;
-          img.style.display = "block";
+
+          var download_link = document.getElementById("download-link");
+          download_link.href = xmlDoc.getElementsByTagName("url")[0].innerHTML;
+          document.getElementById("next-cat").disabled = false;
+          document.getElementById("download-btn").disabled = false;
+          document.getElementById("sourceurl").value = xmlDoc.getElementsByTagName("source_url")[0].innerHTML;
+          document.getElementById("sourcelink").href = xmlDoc.getElementsByTagName("source_url")[0].innerHTML;
       }
 
       /**
@@ -52,6 +80,13 @@
               displayCat(xhttp);
             }
         };
+        document.getElementById("next-cat").disabled = true;
+        document.getElementById("sourcelink").href = "#";
+        document.getElementById("sourceurl").value = "";
+        document.getElementById("download-link").href = "#";
+        document.getElementById("download-btn").disabled = true;
+        var img = document.getElementById("cat");
+        img.src = "loading.gif";
         xhttp.open("GET", "http://thecatapi.com/api/images/get?format=xml&results_per_page=1", true);
         xhttp.send();
       }
