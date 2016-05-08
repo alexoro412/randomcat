@@ -76,10 +76,17 @@
               Star Cat &nbsp; <span class="glyphicon glyphicon-star"></span>
             </button>
           </p>
+          <p>
+            <a href="" id="sourcelink">
+              <button id="view-btn" type="button" class="btn btn-lg btn-primary btn-block">
+                View Cat
+              </button>
+            </a>
+          </p>
 
           <div class="input-group">
             <span class="input-group-addon">URL</span>
-            <a href="" id="sourcelink"><input id="sourceurl" type="text" class="form-control" readonly value=""></a>
+            <input id="sourceurl" type="text" class="form-control" readonly value="">
           </div>
 
           <p>
@@ -174,6 +181,9 @@
     if(QueryString.fromStarred != undefined){
       document.getElementById("back").href = "saved.html";
       document.getElementById("back-text").innerHTML = "Back to Starred";
+    }else{
+      document.getElementById("view-btn").style.display = "none";
+      document.getElementById("sourcelink").style.display = "none";
     }
     function star(id){
       if(Cookies.get("saved") == undefined){
