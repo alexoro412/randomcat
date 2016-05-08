@@ -118,7 +118,7 @@
           <a href="http://thecatapi.com/api/images/get?image_id=' + saved[i] + '" download>\
           <button type="button" class="btn btn-lg btn-primary">Download</button>\
           </a>\
-          <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Delete</button>\
+          <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Unstar</button>\
           </div>\
           </div>';
         }
@@ -127,8 +127,8 @@
 
       function deleteCat(id){
         bootbox.dialog({
-          message: "Are you sure you want to delete this cat?",
-          title: "Confirm delete",
+          message: "Are you sure you want to unstar this cat? </br> It will no longer be available under your starred cats page </br> Which is sad",
+          title: "Confirm Unstarment",
           buttons: {
             cancel: {
               label: "Cancel",
@@ -138,7 +138,7 @@
               }
             },
             main: {
-              label: "Delete",
+              label: "Unstar",
               className: "btn-danger",
               callback: function() {
                 document.getElementById(id).style.display = "none";

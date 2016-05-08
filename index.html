@@ -204,6 +204,16 @@
         }
       }
 
+      function unstar(id){
+        var arr = Cookies.getJSON("saved");
+        var index = arr.indexOf(id);
+        arr.splice(index,1);
+        console.log(arr);
+        Cookies.set("saved", arr);
+
+        $.snackbar({content: "Deleted Cat"});
+      }
+
       function starCurrent(){
         star(currentCatId);
         document.getElementById("star-btn").disabled = true;
@@ -211,6 +221,10 @@
 
       /* get the first cat */
       get();
+
+      $( "#cat" ).dblclick(function() {
+        starCurrent();
+      });
 
     </script>
 
