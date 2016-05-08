@@ -31,7 +31,7 @@
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
         <div class="navbar-header">
-         <a class="navbar-brand" href="#">Random Cat</a>
+         <a class="navbar-brand" href="#">Random Cat <sup><small>BETA</small></sup></a>
        </div>
      </div>
     </nav>
@@ -149,6 +149,11 @@
     <script>
 
     currentCatId = "";
+
+    if (window.location.protocol != "http:"){
+      window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
+    }
+
     var QueryString = function () {
       // This function is anonymous, is executed immediately and
       // the return value is assigned to QueryString!
@@ -203,7 +208,7 @@
       document.getElementById("star-btn").disabled = true;
     }
 
-    $( "#cat" ).dblclick(function() {
+    $("#cat").dblclick(function() {
       starCurrent();
     });
 

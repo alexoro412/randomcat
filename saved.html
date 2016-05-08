@@ -37,7 +37,7 @@
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
         <div class="navbar-header">
-         <a class="navbar-brand" href="#">Random Cat</a>
+         <a class="navbar-brand" href="#">Random Cat <sup><small>BETA</small></sup></a>
        </div>
      </div>
     </nav>
@@ -102,7 +102,9 @@
 
     <script>
 
-
+    if (window.location.protocol != "http:"){
+      window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
+    }
 
       function loadSavedCats(){
         var saved = Cookies.getJSON("saved");

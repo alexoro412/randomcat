@@ -40,7 +40,7 @@
           <button type="button" class="navbar-toggle" onclick="get()">
             Next Cat <span class="glyphicon glyphicon-arrow-right"></span>
           </button>
-         <a class="navbar-brand" href="#">Random Cat</a>
+         <a class="navbar-brand" href="#">Random Cat <sup><small>BETA</small></sup></a>
        </div>
      </div>
     </nav>
@@ -158,6 +158,9 @@
     <script>
       currentCatId = "";
 
+      if (window.location.protocol != "http:"){
+        window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
+      }
       /**
       *   Takes an xml resonse from The Cat API and displays the cat
       */
