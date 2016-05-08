@@ -114,11 +114,11 @@
           </div>\
           <div class="panel-body">\
           <img src=\"http://thecatapi.com/api/images/get?image_id=' + saved[i] + '"/>\
-          <a href="single.html?fromStarred&id='+saved[i]+'"><button type="button" class="btn btn-lg btn-primary">View</button></a>\
+          <a href="single.html?fromStarred&id='+saved[i]+'"><button type="button" class="btn btn-lg btn-primary">View <span class="glyphicon glyphicon-eye-open"></span></button></a>\
           <a href="http://thecatapi.com/api/images/get?image_id=' + saved[i] + '" download>\
-          <button type="button" class="btn btn-lg btn-primary">Download</button>\
+          <button type="button" class="btn btn-lg btn-primary">Download <span class="glyphicon glyphicon-arrow-down"></span></button>\
           </a>\
-          <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Unstar</button>\
+          <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Unstar &nbsp;<span class="glyphicon glyphicon-star-empty"></span></button>\
           </div>\
           </div>';
         }
