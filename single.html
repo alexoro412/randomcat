@@ -187,13 +187,13 @@
     }
     function star(id){
       if(Cookies.get("saved") == undefined){
-        Cookies.set("saved", [id]);
+        Cookies.set("saved", [id], {expires:365});
       }else{
         var arr = Cookies.getJSON("saved");
         if(arr.indexOf(id) == -1){
           $.snackbar({content: "Starred Cat"});
           arr.push(id);
-          Cookies.set("saved", arr);
+          Cookies.set("saved", arr, {expires:365});
         }
       }
     }
