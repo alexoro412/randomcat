@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
-
   <body>
     <style>
       html, body{
@@ -29,17 +28,9 @@
       }
     </style>
 
-    <!-- <div class="col-md-12">
-      </br>
-    </br>
-  </br>
-    </div> -->
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" onclick="get()">
-            Next Cat <span class="glyphicon glyphicon-arrow-right"></span>
-          </button>
          <a class="navbar-brand" href="#">Random Cat</a>
        </div>
      </div>
@@ -62,12 +53,6 @@
           <h3 class="panel-title">Random Cat</h3>
         </div>
         <div class="panel-body">
-          <p>
-              <button id="next-cat" type="button" class="btn btn-lg btn-block btn-primary" onclick="get()">
-                Next cat&nbsp;<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-              </button>
-          </p>
-
           <p>
             <a id="download-link" href="loading.gif" download>
               <button id="download-btn" type="button" class="btn btn-lg btn-block btn-primary">
@@ -138,84 +123,63 @@
       </div>
     </div>
 
-
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/snackbar.min.js"></script>
     <script src="js/js-cookie.js"></script>
     <script src="js/bootbox.js"></script>
 
-
-
     <script>
-      currentCatId = "";
 
-      /**
-      *   Takes an xml resonse from The Cat API and displays the cat
-      */
-      function displayCat(xml) {
-          var xmlDoc = xml.responseXML;
-          var img = document.getElementById("cat");
-          img.src = xmlDoc.getElementsByTagName("url")[0].innerHTML;
-          currentCatId = xmlDoc.getElementsByTagName("id")[0].innerHTML;
-          var download_link = document.getElementById("download-link");
-          download_link.href = xmlDoc.getElementsByTagName("url")[0].innerHTML;
-          document.getElementById("next-cat").disabled = false;
-          document.getElementById("download-btn").disabled = false;
-          document.getElementById("sourceurl").value = "http://alexoro412.github.com/randomcat/single.html?id=" + currentCatId;
-          document.getElementById("sourcelink").href = "http://alexoro412.github.com/randomcat/single.html?id=" + currentCatId;
-          document.getElementById("picture-title").innerHTML = xmlDoc.getElementsByTagName("id")[0].innerHTML;
-          document.getElementById("star-btn").disabled = false;
-      }
-
-      /**
-      *   Gets a random cat from The Cat API, then calls display cat
-      */
-      function get(){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-              displayCat(xhttp);
-            }
-        };
-        document.getElementById("star-btn").disabled = true;
-        document.getElementById("next-cat").disabled = true;
-        document.getElementById("sourcelink").href = "#";
-        document.getElementById("sourceurl").value = "";
-        document.getElementById("download-link").href = "#";
-        document.getElementById("download-btn").disabled = true;
-        document.getElementById("picture-title").innerHTML = "loading";
-        var img = document.getElementById("cat");
-        img.src = "loading.gif";
-        xhttp.open("GET", "http://thecatapi.com/api/images/get?format=xml&results_per_page=1", true);
-        xhttp.send();
-      }
-
-      function star(id){
-        if(Cookies.get("saved") == undefined){
-          Cookies.set("saved", [id]);
-        }else{
-          var arr = Cookies.getJSON("saved");
-          if(arr.indexOf(id) == -1){
-            $.snackbar({content: "Starred Cat"});
-            arr.push(id);
-            Cookies.set("saved", arr);
-          }
+    currentCatId = "";
+    var QueryString = function () {
+      // This function is anonymous, is executed immediately and
+      // the return value is assigned to QueryString!
+      var query_string = {};
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+            // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+          query_string[pair[0]] = decodeURIComponent(pair[1]);
+            // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+          var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+          query_string[pair[0]] = arr;
+            // If third or later entry with this name
+        } else {
+          query_string[pair[0]].push(decodeURIComponent(pair[1]));
         }
       }
+        return query_string;
+    }();
 
-      function starCurrent(){
-        star(currentCatId);
-        document.getElementById("star-btn").disabled = true;
+    document.getElementById("cat").src = "http://thecatapi.com/api/images/get?image_id=" + QueryString.id;
+    document.getElementById("picture-title").innerHTML = QueryString.id;
+    currentCatId = QueryString.id;
+    document.getElementById("download-link").href = "http://thecatapi.com/api/images/get?image_id=" + QueryString.id;
+    document.getElementById("sourcelink").href = "http://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
+    document.getElementById("sourceurl").value = "http://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
+
+    function star(id){
+      if(Cookies.get("saved") == undefined){
+        Cookies.set("saved", [id]);
+      }else{
+        var arr = Cookies.getJSON("saved");
+        if(arr.indexOf(id) == -1){
+          $.snackbar({content: "Starred Cat"});
+          arr.push(id);
+          Cookies.set("saved", arr);
+        }
       }
+    }
 
-      /* get the first cat */
-      get();
+    function starCurrent(){
+      star(currentCatId);
+      document.getElementById("star-btn").disabled = true;
+    }
 
     </script>
-
-
-
   </body>
-
 </html>
