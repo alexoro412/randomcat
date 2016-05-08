@@ -5,11 +5,10 @@
 
   <head>
     <title>Random Cat</title>
-    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons"> -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-material-design.min.css" rel="stylesheet">
     <link href="css/ripples.min.css" rel="stylesheet">
+    <link href="css/snackbar.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -77,10 +76,24 @@
             </a>
           </p>
 
+          <p>
+            <button type="button" class="btn btn-lg btn-primary btn-block" onclick="starCurrent()" id="star-btn">
+              Star Cat &nbsp; <span class="glyphicon glyphicon-star"></span>
+            </button>
+          </p>
+
           <div class="input-group">
             <span class="input-group-addon">URL</span>
             <a href="" id="sourcelink"><input id="sourceurl" type="text" class="form-control" readonly value=""></a>
           </div>
+
+          <p>
+            <a href="saved.html">
+              <button type="button" class="btn btn-lg btn-block btn-primary">
+                View Starred Cats
+              </button>
+            </a>
+          </p>
         </div>
       </div>
     </div>
@@ -111,9 +124,17 @@
     </div>
 
 
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/snackbar.min.js"></script>
+    <script src="js/js-cookie.js"></script>
+    <script src="js/bootbox.js"></script>
+
 
 
     <script>
+      currentCatId = "";
+
       /**
       *   Takes an xml resonse from The Cat API and displays the cat
       */
@@ -121,7 +142,7 @@
           var xmlDoc = xml.responseXML;
           var img = document.getElementById("cat");
           img.src = xmlDoc.getElementsByTagName("url")[0].innerHTML;
-
+          currentCatId = xmlDoc.getElementsByTagName("id")[0].innerHTML;
           var download_link = document.getElementById("download-link");
           download_link.href = xmlDoc.getElementsByTagName("url")[0].innerHTML;
           document.getElementById("next-cat").disabled = false;
@@ -129,6 +150,7 @@
           document.getElementById("sourceurl").value = xmlDoc.getElementsByTagName("source_url")[0].innerHTML;
           document.getElementById("sourcelink").href = xmlDoc.getElementsByTagName("source_url")[0].innerHTML;
           document.getElementById("picture-title").innerHTML = xmlDoc.getElementsByTagName("id")[0].innerHTML;
+          document.getElementById("star-btn").disabled = false;
       }
 
       /**
@@ -141,6 +163,7 @@
               displayCat(xhttp);
             }
         };
+        document.getElementById("star-btn").disabled = true;
         document.getElementById("next-cat").disabled = true;
         document.getElementById("sourcelink").href = "#";
         document.getElementById("sourceurl").value = "";
@@ -153,10 +176,30 @@
         xhttp.send();
       }
 
+      function star(id){
+        if(Cookies.get("saved") == undefined){
+          Cookies.set("saved", [id]);
+        }else{
+          var arr = Cookies.getJSON("saved");
+          if(arr.indexOf(id) == -1){
+            $.snackbar({content: "Starred Cat"});
+            arr.push(id);
+            Cookies.set("saved", arr);
+          }
+        }
+      }
+
+      function starCurrent(){
+        star(currentCatId);
+        document.getElementById("star-btn").disabled = true;
+      }
+
       /* get the first cat */
       get();
 
     </script>
+
+
 
   </body>
 

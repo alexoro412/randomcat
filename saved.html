@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+
+<html>
+
+  <head>
+    <title>Random Cat</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-material-design.min.css" rel="stylesheet">
+    <link href="css/ripples.min.css" rel="stylesheet">
+    <link href="css/snackbar.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  </head>
+
+  <body>
+    <style>
+      html, body{
+        margin:0px;
+        border:0px;
+        padding:0px;
+      }
+      #cat, img{
+        width: 100%;
+        max-width:100%;
+      }
+      a[disabled] {
+        pointer-events: none;
+      }
+    </style>
+
+    <!-- <div class="col-md-12">
+      </br>
+    </br>
+  </br>
+    </div> -->
+    <nav class="navbar navbar-primary">
+      <div class="container-fluid">
+        <div class="navbar-header">
+         <a class="navbar-brand" href="#">Random Cat</a>
+       </div>
+     </div>
+    </nav>
+    <div class="col-md-7 col-md-offset-1">
+      <div class="panel panel-primary">
+        <a href="index.html">
+          <button type="button" class="btn btn-primary btn-block">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back to Browse
+          </button>
+        </a>
+      </div>
+    </div>
+    <div id="holder" class="col-md-7 col-md-offset-1">
+
+    </div>
+    <div class="col-md-3 col-md-offset-1">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">About Random Cat</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <small>
+              <p>
+                Special thanks to <a href="http://thecatapi.com/">The Cat API</a>
+              </p>
+              <p>
+                <a href="http://getbootstrap.com/">Bootstrap</a>
+                |
+                <a href="http://fezvrasta.github.io/bootstrap-material-design/">Bootstrap Theme</a>
+              </p>
+              <p>
+                I take no responsbility for any of these pictures whatsoever
+              </p>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/snackbar.min.js"></script>
+    <script src="js/js-cookie.js"></script>
+    <script src="js/bootbox.js"></script>
+
+
+    <script>
+
+
+
+      function loadSavedCats(){
+        var saved = Cookies.getJSON("saved");
+        var h = "";
+        for(var i = 0; i < saved.length; i++){
+          h += '\
+          <div class="panel panel-primary" id="'+saved[i]+'">\
+          <div class="panel-heading"><h2 class="panel-title">'+ saved[i] +'</h2>\
+          </div>\
+          <div class="panel-body">\
+          <img src=\"http://thecatapi.com/api/images/get?image_id=' + saved[i] + '"/>\
+          <a href="http://thecatapi.com/api/images/get?image_id=' + saved[i] + '" download>\
+          <button type="button" class="btn btn-lg btn-primary">Download</button>\
+          </a>\
+          <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Delete</button>\
+          </div>\
+          </div>';
+        }
+        document.getElementById("holder").innerHTML = h;
+      }
+
+      function deleteCat(id){
+        bootbox.dialog({
+          message: "Are you sure you want to delete this cat?",
+          title: "Confirm delete",
+          buttons: {
+            cancel: {
+              label: "Cancel",
+              className: "btn-primary",
+              callback: function() {
+
+              }
+            },
+            main: {
+              label: "Delete",
+              className: "btn-danger",
+              callback: function() {
+                document.getElementById(id).style.display = "none";
+                document.getElementById(id).innerHTML = '';
+                var arr = Cookies.getJSON("saved");
+                var index = arr.indexOf(id);
+                arr.splice(index,1);
+                console.log(arr);
+                Cookies.set("saved", arr);
+
+                $.snackbar({content: "Deleted Cat"});
+              }
+            }
+          }
+        });
+      }
+      loadSavedCats();
+    </script>
+
+
+
+  </body>
+
+</html>
