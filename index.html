@@ -181,6 +181,7 @@
           document.getElementById("picture-title").innerHTML = xmlDoc.getElementsByTagName("id")[0].innerHTML;
           document.getElementById("star-btn").disabled = false;
           document.getElementById("view-btn").disabled = false;
+          checkStarred(currentCatId);
       }
 
       /**
@@ -257,7 +258,7 @@
         console.log(arr);
         Cookies.set("saved", arr, {expires:365});
 
-        $.snackbar({content: "Deleted Cat"});
+        $.snackbar({content: "Unstarred Cat"});
       }
 
       function unstarCurrent(){
