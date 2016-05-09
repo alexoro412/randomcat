@@ -199,6 +199,7 @@
     document.getElementById("picture-title").innerHTML = QueryString.id;
     currentCatId = QueryString.id;
     document.getElementById("download-link").href = "https://thecatapi.com/api/images/get?image_id=" + QueryString.id;
+    document.getElementById("download-link").download = currentCatId;
     document.getElementById("sourcelink").href = "single.html?id=" + QueryString.id;
     document.getElementById("sourceurl").value = "https://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
 

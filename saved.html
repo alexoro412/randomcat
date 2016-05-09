@@ -137,7 +137,7 @@
           <div class="panel-body">\
           <img src=\"https://thecatapi.com/api/images/get?image_id=' + saved[i] + '"/>\
           <a href="single.html?id='+saved[i]+'"><button type="button" class="btn btn-lg btn-primary">View <span class="glyphicon glyphicon-eye-open"></span></button></a>\
-          <a href="https://thecatapi.com/api/images/get?image_id=' + saved[i] + '" download>\
+          <a href="https://thecatapi.com/api/images/get?image_id=' + saved[i] + '" download='+saved[i]+'>\
           <button type="button" class="btn btn-lg btn-primary">Download <span class="glyphicon glyphicon-arrow-down"></span></button>\
           </a>\
           <button type="button" class="btn btn-lg btn-warning" onclick="deleteCat(\''+saved[i]+'\')">Unstar &nbsp;<span class="glyphicon glyphicon-star-empty"></span></button>\

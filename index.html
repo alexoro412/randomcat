@@ -183,6 +183,7 @@
           currentCatId = xmlDoc.getElementsByTagName("id")[0].innerHTML;
           var download_link = document.getElementById("download-link");
           download_link.href = xmlDoc.getElementsByTagName("url")[0].innerHTML;
+          download_link.download = currentCatId;
           document.getElementById("next-cat").disabled = false;
           document.getElementById("download-btn").disabled = false;
           document.getElementById("sourceurl").value = "https://alexoro412.github.com/randomcat/single.html?id=" + currentCatId;
