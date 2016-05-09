@@ -159,6 +159,8 @@
     <script src="js/bootbox.js"></script>
     <script src="js/ripples.min.js"></script>
     <script src="js/material.min.js"></script>
+    <script src="js/jquery.touchSwipe.js"></script> <!-- find link -->
+    
     <script>$.material.init();</script>
 
 
@@ -289,8 +291,24 @@
       /* get the first cat */
       get();
 
-      $( "#cat" ).dblclick(function() {
-        starCurrent();
+      // $( "#cat" ).dblclick(function() {
+      //   starCurrent();
+      // });
+      $(function() {
+          $("#cat").swipe( {
+            tap:function(event, target) {
+
+            },
+            doubleTap:function(event, target) {
+              if(target.id == "cat"){
+                starCurrent();
+              }
+            },
+            longTap:function(event, target) {
+
+            },
+            threshold:50
+          });
       });
 
     </script>
