@@ -98,9 +98,7 @@
           </p>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-3 col-md-offset-1">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">About Random Cat</h3>
@@ -149,6 +147,7 @@
     <script>
 
     currentCatId = "";
+    starred = false;
 
     if (window.location.protocol != "http:"){
       window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
@@ -190,6 +189,7 @@
       document.getElementById("view-btn").style.display = "none";
       document.getElementById("sourcelink").style.display = "none";
     }
+
     function star(id){
       if(Cookies.get("saved") == undefined){
         Cookies.set("saved", [id], {expires:365});
@@ -203,14 +203,66 @@
       }
     }
 
+    function checkStarred(id){
+      var starred = Cookies.getJSON('saved');
+      if(starred != undefined){
+        var inThere = false;
+        for(var i = 0; i < starred.length; i++){
+          if(starred[i] == id){
+            inThere = true;
+            setStarButton(false);
+            break;
+          }
+        }
+        if(!inThere){
+          setStarButton(true);
+        }
+      }
+    }
+
+    function setStarButton(on){
+      var btn = document.getElementById("star-btn");
+      if(on){
+        btn.innerHTML = 'Star Cat &nbsp; <span class="glyphicon glyphicon-star"></span>';
+        starred = false;
+        // btn.onclick = function(){unstarCurrent()};
+      }else{
+        btn.innerHTML = 'Unstar Cat &nbsp; <span class="glyphicon glyphicon-star-empty"></span>'
+        starred = true;
+        // btn.onclick = function(){starCurrent()};
+      }
+    }
+
+    function unstar(id){
+      var arr = Cookies.getJSON("saved");
+      var index = arr.indexOf(id);
+      arr.splice(index,1);
+      console.log(arr);
+      Cookies.set("saved", arr, {expires:365});
+
+      $.snackbar({content: "Deleted Cat"});
+    }
+
+    function unstarCurrent(){
+      unstar(currentCatId);
+      checkStarred(currentCatId);
+    }
+
     function starCurrent(){
-      star(currentCatId);
-      document.getElementById("star-btn").disabled = true;
+      if(starred){
+        unstarCurrent();
+      }else{
+        star(currentCatId);
+        checkStarred(currentCatId);
+      }
+      // document.getElementById("star-btn").disabled = true;
     }
 
     $("#cat").dblclick(function() {
       starCurrent();
     });
+
+    checkStarred(currentCatId);
 
     </script>
   </body>
