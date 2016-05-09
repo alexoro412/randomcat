@@ -27,7 +27,22 @@
       a[disabled] {
         pointer-events: none;
       }
+      #next-mobile{
+        position:fixed;
+        bottom:30px;
+        right:30px;
+        z-index:100;
+        transform:scale(1.5,1.5);
+      }
+      .btn-fab:focus, .btn-fab:active, .btn-fab:enabled{
+        background-color: #3f51b5 !important;
+        color: #ffffff !important;
+      }
     </style>
+
+    <button onclick="get()" class="btn btn-inverse btn-lg btn-fab pull-right visible-xs" id="next-mobile">
+      <span class="glyphicon glyphicon-arrow-right material-icons"></span>
+    </button>
 
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
@@ -55,10 +70,14 @@
     <div class="col-md-7 col-md-offset-1">
       <div class="panel panel-primary">
         <div class="panel-heading">
+
           <h2 id="picture-title" class="panel-title">Random Cat</h2>
+
         </div>
         <div class="panel-body">
+
           <img src="loading.gif" id="cat"/>
+
         </div>
       </div>
     </div>
@@ -101,14 +120,6 @@
             <span class="input-group-addon">URL</span>
             <input id="sourceurl" type="text" class="form-control" readonly value="">
           </div>
-
-          <!-- <p>
-            <a href="saved.html">
-              <button type="button" class="btn btn-lg btn-block btn-primary">
-                View Starred Cats
-              </button>
-            </a>
-          </p> -->
         </div>
       </div>
 
@@ -160,7 +171,7 @@
     <script src="js/ripples.min.js"></script>
     <script src="js/material.min.js"></script>
     <script src="js/jquery.touchSwipe.js"></script> <!-- find link -->
-    
+
     <script>$.material.init();</script>
 
 
@@ -187,6 +198,7 @@
           download_link.href = xmlDoc.getElementsByTagName("url")[0].innerHTML;
           download_link.download = currentCatId;
           document.getElementById("next-cat").disabled = false;
+          document.getElementById("next-mobile").disabled = false;
           document.getElementById("download-btn").disabled = false;
           document.getElementById("sourceurl").value = "https://alexoro412.github.com/randomcat/single.html?id=" + currentCatId;
           document.getElementById("sourcelink").href = "single.html?id=" + currentCatId;
@@ -208,6 +220,7 @@
         };
         document.getElementById("star-btn").disabled = true;
         document.getElementById("next-cat").disabled = true;
+        document.getElementById("next-mobile").disabled = true;
         document.getElementById("sourcelink").href = "#";
         document.getElementById("sourceurl").value = "";
         document.getElementById("download-link").href = "#";
