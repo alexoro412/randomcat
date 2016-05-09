@@ -106,6 +106,10 @@
       window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
     }
 
+    if(Cookies.getJSON("saved") == undefined){
+      Cookies.set("saved", []);
+    }
+
       function loadSavedCats(){
         var saved = Cookies.getJSON("saved");
         var h = "";
