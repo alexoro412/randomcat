@@ -120,7 +120,7 @@
           <p>
             <small>
               <p>
-                Special thanks to <a href="http://thecatapi.com/">The Cat API</a>
+                Special thanks to <a href="https://thecatapi.com/">The Cat API</a>
               </p>
               <p>
                 <a href="https://jquery.com/">jQuery</a>
@@ -166,9 +166,9 @@
       Cookies.set("saved", []);
     }
 
-    if (window.location.protocol != "http:"){
-      window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
-    }
+    // if (window.location.protocol != "http:"){
+    //   window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
+    // }
 
     var QueryString = function () {
       // This function is anonymous, is executed immediately and
@@ -193,12 +193,12 @@
         return query_string;
     }();
 
-    document.getElementById("cat").src = "http://thecatapi.com/api/images/get?image_id=" + QueryString.id;
+    document.getElementById("cat").src = "https://thecatapi.com/api/images/get?image_id=" + QueryString.id;
     document.getElementById("picture-title").innerHTML = QueryString.id;
     currentCatId = QueryString.id;
-    document.getElementById("download-link").href = "http://thecatapi.com/api/images/get?image_id=" + QueryString.id;
+    document.getElementById("download-link").href = "https://thecatapi.com/api/images/get?image_id=" + QueryString.id;
     document.getElementById("sourcelink").href = "single.html?id=" + QueryString.id;
-    document.getElementById("sourceurl").value = "http://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
+    document.getElementById("sourceurl").value = "https://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
 
     if(QueryString.fromStarred != undefined){
       document.getElementById("back").href = "saved.html";
