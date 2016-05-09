@@ -31,8 +31,23 @@
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsed-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
          <a class="navbar-brand" href="#">Random Cat <sup><small>BETA</small></sup></a>
        </div>
+
+       <div class="collapse navbar-collapse" id="collapsed-navbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="saved.html">Starred</a></li>
+          <li><a href="search.html">Search</a></li>
+        </ul>
+      </div>
+
      </div>
     </nav>
 
@@ -186,9 +201,14 @@
     document.getElementById("download-link").href = "http://thecatapi.com/api/images/get?image_id=" + QueryString.id;
     document.getElementById("sourcelink").href = "single.html?id=" + QueryString.id;
     document.getElementById("sourceurl").value = "http://alexoro412.github.com/randomcat/single.html?id=" + QueryString.id;
+
     if(QueryString.fromStarred != undefined){
       document.getElementById("back").href = "saved.html";
       document.getElementById("back-text").innerHTML = "Back to Starred";
+    }else if(QueryString.fromSearch != undefined){
+      // console.log("h");
+      document.getElementById('back').href = "search.html";
+      document.getElementById('back-text').innerHTML = "Back to Search";
     }else{
       document.getElementById("view-btn").style.display = "none";
       document.getElementById("sourcelink").style.display = "none";
