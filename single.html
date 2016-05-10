@@ -26,7 +26,45 @@
       a[disabled] {
         pointer-events: none;
       }
+      #star-overlay{
+        position:fixed;
+        text-align: center;
+        /*opacity: 0.5;*/
+        /*background-color: #ffffff;*/
+        width:100%;
+        height:100%;
+        z-index:12;
+        display: table;
+        /*display: none;*/
+        /*vertical-align: middle;*/
+      }
+      #actual-overlay{
+        position:fixed;
+        text-align: center;
+        opacity: 0.5;
+        background-color: #ffffff;
+        width:100%;
+        height:100%;
+        z-index:12;
+        display: table;
+        /*vertical-align: middle;*/
+      }
+      #star-overlay > span{
+        display: table-cell;
+        vertical-align: middle;
+        font-size:1000%;
+        color: rgba(200, 200, 200, 1);
+        /*opacity: 0;*/
+        /*width: auto;
+        height: auto;*/
+        /*opacity: 1 !important;*/
+      }
     </style>
+
+    <div id="star-overlay" >
+      <div id="actual-overlay"></div>
+      <span id="overlaid-star" class="glyphicon glyphicon-star"></span>
+    </div>
 
     <nav class="navbar navbar-primary">
       <div class="container-fluid">
@@ -158,6 +196,7 @@
     <script src="js/bootbox.js"></script>
     <script src="js/ripples.min.js"></script>
     <script src="js/material.min.js"></script>
+    <script src="js/jquery.touchSwipe.js"></script>
     <script>$.material.init();</script>
     <script>
 
@@ -274,17 +313,39 @@
     }
 
     function starCurrent(){
+
+      // $("#star-overlay").delay(100);
+      // $("#star-overlay").css("display", "none");
       if(starred){
+        $("#overlaid-star").addClass("glyphicon-star-empty");
+        $("#star-overlay").fadeIn(200).delay(200).fadeOut(200);
         unstarCurrent();
       }else{
+        $("#overlaid-star").removeClass("glyphicon-star-empty");
+        $("#star-overlay").fadeIn(200).delay(200).fadeOut(200);
         star(currentCatId);
         checkStarred(currentCatId);
       }
       // document.getElementById("star-btn").disabled = true;
     }
 
-    $("#cat").dblclick(function() {
-      starCurrent();
+    $("#star-overlay").fadeOut(0);
+
+    $(function() {
+        $("#cat").swipe( {
+          tap:function(event, target) {
+
+          },
+          doubleTap:function(event, target) {
+            if(target.id == "cat"){
+              starCurrent();
+            }
+          },
+          longTap:function(event, target) {
+
+          },
+          threshold:50
+        });
     });
 
     checkStarred(currentCatId);
