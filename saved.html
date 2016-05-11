@@ -175,7 +175,7 @@
                 var index = arr.indexOf(id);
                 arr.splice(index,1);
                 console.log(arr);
-                Cookies.set("saved", arr, {expires:365});
+                Cookies.set("saved", arr, {expires:10000});
 
                 $.snackbar({content: "Unstarred Cat"});
               }
