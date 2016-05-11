@@ -260,6 +260,7 @@
 
       function bufferCats(xml){
         var xmlDoc = xml.responseXML;
+        if(xmlDoc == undefined){get();}
         var ids = xmlDoc.getElementsByTagName("id");
         for(var i = 0; i < ids.length; i++){
           buffer.push(ids[i].innerHTML);
