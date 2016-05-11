@@ -270,11 +270,11 @@
       function nextCat(){
 
         if(buffer.length < 7){
-          console.log("woops");
+          // console.log("woops");
           get();
         }
         if(buffer.length <= 0){
-          console.log(":D");
+          // console.log(":D");
           setTimeout(nextCat, 500);
           return;
         }
@@ -299,7 +299,7 @@
         document.getElementById("download-btn").disabled = true;
         document.getElementById("view-btn").disabled = true;
         document.getElementById("picture-title").innerHTML = "loading";
-        console.log("here!");
+        // console.log("here!");
 
         img.src = url;
         checkStarred(id);
@@ -309,7 +309,7 @@
       }
 
       document.getElementById("cat").onload = function(){
-        console.log("loaded");
+        // console.log("loaded");
         var id = currentCatId;
         var url = "https://thecatapi.com/api/images/get.php?id=" + id;
         var download_link = document.getElementById("download-link");
