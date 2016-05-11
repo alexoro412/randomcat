@@ -103,7 +103,7 @@
         <div class="panel-heading">
           <h2 id="picture-title" class="panel-title">Random Cat</h2>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="cat-holder">
           <img src="loading.gif" id="cat"/>
         </div>
       </div>
@@ -172,8 +172,10 @@
                 <a href="https://github.com/FezVrasta/snackbarjs">Snackbar</a>
                 |
                 <a href="http://bootboxjs.com/">Bootbox</a>
-                |
+              </br>
                 <a href="https://github.com/js-cookie/js-cookie">js-cookie</a>
+                |
+                <a href="https://github.com/mattbryson/TouchSwipe-Jquery-Plugin">jQuery touchSwipe</a>
               </p>
               <p>
                 Made by <a href="https://github.com/alexoro412/"> alexoro412</a>
@@ -211,6 +213,15 @@
     // if (window.location.protocol != "http:"){
     //   window.location.href = "http:" + window.location.href.substring(window.location.protocol.length);
     // }
+
+    document.getElementById("cat").onerror = function(){
+      document.getElementById("cat-holder").innerHTML = '<h3>Oops...</h3>\
+      <p>Ok.... Soooo......</p>\
+      <p>This cat doesn\'t exist....</p>\
+      <p><small>Sorry...</small></p>\
+      <a class="btn btn-raised btn-lg" href="index.html">Back to Browse</a>\
+      '
+    }
 
     var QueryString = function () {
       // This function is anonymous, is executed immediately and
