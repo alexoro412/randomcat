@@ -326,6 +326,10 @@
 
       }
 
+      document.getElementById("cat").onerror = function(){
+        nextCat();
+      }
+
       /**
       *   Gets a random cat from The Cat API, then calls display cat
       */
